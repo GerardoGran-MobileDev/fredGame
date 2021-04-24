@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     // MARK: Variables
+    let fredService : FredScoreService = FredScoreService()
     var userConfig = UserDefaults.standard
     let generator : SequenceGenerator = SequenceGenerator()
     let top10 : Top10 = Top10()
@@ -87,7 +88,9 @@ class ViewController: UIViewController {
             pressedButtonCounter = 0
             status.text = "😱"
             pendingCounter.text = "0"
-            top10.add(newScore: Score(name: username, date: Date(), points: score))
+            let newScore = Score(name: username, date: Date(), points: score)
+            top10.add(newScore: newScore)
+            fredService.makePostCall(newScore: newScore)
             enableActionButtons()
             disableGameButtons()
             

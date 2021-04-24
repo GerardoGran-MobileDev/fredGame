@@ -73,7 +73,14 @@ class FredScoreService {
             return
         }
     
+        let jsonEncoder = JSONEncoder()
+        let jsonData = try! jsonEncoder.encode(newScore)
+        //let json = String(data: jsonData, encoding: String.Encoding.utf16)
+        
         var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        urlRequest.httpBody = jsonData
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
