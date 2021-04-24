@@ -8,11 +8,17 @@
 import UIKit
 
 class Top10ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
+    let fredService : FredScoreService = FredScoreService()
     
     @IBOutlet weak var scoreTableView: UITableView!
     
     func configureView() {
-        
+        top10data!.loadData {
+            DispatchQueue.main.async {
+                self.scoreTableView.reloadData()
+                
+            }
+        }
     }
     
     override func viewDidLoad() {
