@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     // MARK: Variables
+    var userConfig = UserDefaults.standard
     let generator : SequenceGenerator = SequenceGenerator()
     let top10 : Top10 = Top10()
     var buttonsGrid : [UIButton?] = [UIButton?](repeating : nil, count: 10)
@@ -150,6 +151,11 @@ class ViewController: UIViewController {
     }
     
     func requestNickname() {
+        if let username = userConfig.string(forKey: "nickname") {
+            self.username = username
+            return
+        }
+        
         let alertController = UIAlertController(title: "Nickname needed", message: "Please provide a nickname", preferredStyle: UIAlertController.Style.alert)
         alertController.addTextField() {
             (nicknameTextfield) in
@@ -162,6 +168,8 @@ class ViewController: UIViewController {
             let textFields = alertController.textFields
             let nicknameTextfield = textFields?.first
             self.username = nicknameTextfield?.text! ?? "NONAME"
+            
+            self.userConfig.setValue(self.username, forKey: "nickname")
         }
         alertController.addAction(doneAction)
 
