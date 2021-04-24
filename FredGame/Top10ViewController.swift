@@ -33,13 +33,20 @@ class Top10ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return top10data!.getList().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel!.text = "TEST"
+        cell.textLabel!.text = getScoreData(score: (top10data!.getList()[indexPath.row]))
         
         return cell
+    }
+    
+    func getScoreData(score: Score) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-DD"
+        let entry = "\(dateFormatter.string(from: score.date)) \(score.name) \(score.points)"
+        return entry
     }
 }

@@ -14,6 +14,8 @@ class Top10 {
     func add(newScore : Score) {
         top10List.append(newScore)
         
+        top10List.sort(by: {$0.points > $1.points})
+        
         if top10List.count > 10 {
             top10List = Array(top10List[0...9])
         }
@@ -30,5 +32,6 @@ class Top10 {
             
             handler()
         }
+        
     }
 }

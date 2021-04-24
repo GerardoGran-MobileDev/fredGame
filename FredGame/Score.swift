@@ -17,4 +17,6 @@ class Score : Codable {
         self.date = date
         self.points = points
     }
+    
+    
 }
